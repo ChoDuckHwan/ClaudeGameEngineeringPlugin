@@ -1,0 +1,37 @@
+{
+  "$schema": "PostToolUse mapping — Unreal Engine specific",
+  "version": "1.0.0",
+  "merge_strategy": "append",
+  "watch_paths": [
+    "${PROJECT_ROOT}/Source",
+    "${PROJECT_ROOT}/Content",
+    "${PROJECT_ROOT}/Config"
+  ],
+  "mappings": [
+    {
+      "id": "ue-cpp-header",
+      "patterns": ["*.cpp", "*.h"],
+      "message": "C++ 변경 — unreal-build-helper 빌드 권장"
+    },
+    {
+      "id": "ue-build-cs",
+      "patterns": ["*.Build.cs", "*.Target.cs"],
+      "message": "빌드 설정 변경 — GenerateProjectFiles + 풀 빌드 권장"
+    },
+    {
+      "id": "ue-uproject",
+      "patterns": ["*ProjectFIB.uproject", "*.uproject"],
+      "message": "uproject 변경 — GenerateProjectFiles 재실행 권장"
+    },
+    {
+      "id": "ue-shader",
+      "patterns": ["*.usf", "*.ush", "*.hlsl"],
+      "message": "셰이더 변경 — recompileshaders changed 권장"
+    },
+    {
+      "id": "ue-uasset-config",
+      "patterns": ["*.ini"],
+      "message": "INI 변경 — 에디터 재시작 권장"
+    }
+  ]
+}

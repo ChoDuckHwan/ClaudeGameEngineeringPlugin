@@ -1,0 +1,82 @@
+{
+  "$schema": "Discovery signals — build system / project type by manifest files",
+  "version": "1.0.0",
+  "build_systems": {
+    "unreal_engine": {
+      "manifests": ["*.uproject"],
+      "secondary_signals": ["Source/", "Content/", "Config/"],
+      "primary_language": "cpp",
+      "framework_id": "ue5"
+    },
+    "unity": {
+      "manifests": ["*.unityproj", "Assets/", "ProjectSettings/"],
+      "primary_language": "csharp",
+      "framework_id": "unity"
+    },
+    "node_npm": {
+      "manifests": ["package.json"],
+      "secondary_signals": ["node_modules/", "yarn.lock", "pnpm-lock.yaml"],
+      "primary_language": "javascript"
+    },
+    "node_typescript": {
+      "manifests": ["tsconfig.json"],
+      "secondary_signals": ["package.json"],
+      "primary_language": "typescript"
+    },
+    "python_poetry": {
+      "manifests": ["pyproject.toml"],
+      "secondary_signals": ["poetry.lock"],
+      "primary_language": "python"
+    },
+    "python_pip": {
+      "manifests": ["requirements.txt", "setup.py", "setup.cfg"],
+      "primary_language": "python"
+    },
+    "rust_cargo": {
+      "manifests": ["Cargo.toml"],
+      "secondary_signals": ["Cargo.lock", "src/"],
+      "primary_language": "rust"
+    },
+    "go_modules": {
+      "manifests": ["go.mod"],
+      "secondary_signals": ["go.sum"],
+      "primary_language": "go"
+    },
+    "cmake": {
+      "manifests": ["CMakeLists.txt"],
+      "primary_language": "cpp"
+    },
+    "make": {
+      "manifests": ["Makefile", "GNUmakefile"],
+      "primary_language": "any"
+    },
+    "gradle": {
+      "manifests": ["build.gradle", "build.gradle.kts", "settings.gradle"],
+      "primary_language": "java"
+    },
+    "maven": {
+      "manifests": ["pom.xml"],
+      "primary_language": "java"
+    },
+    "swift_package": {
+      "manifests": ["Package.swift"],
+      "primary_language": "swift"
+    },
+    "xcode": {
+      "manifests": ["*.xcodeproj", "*.xcworkspace"],
+      "primary_language": "swift"
+    },
+    "dotnet": {
+      "manifests": ["*.csproj", "*.sln"],
+      "primary_language": "csharp"
+    },
+    "ruby_bundler": {
+      "manifests": ["Gemfile"],
+      "primary_language": "ruby"
+    },
+    "composer": {
+      "manifests": ["composer.json"],
+      "primary_language": "php"
+    }
+  }
+}

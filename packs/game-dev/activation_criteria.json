@@ -1,0 +1,53 @@
+{
+  "$schema": "Game Dev Pack activation criteria",
+  "version": "1.0",
+  "scoring": {
+    "max_score": 100,
+    "auto_recommend_threshold": 80,
+    "user_query_threshold": 50
+  },
+  "criteria": [
+    {
+      "type": "has_file",
+      "pattern": "GDD*.md",
+      "score": 30,
+      "description": "Game Design Document"
+    },
+    {
+      "type": "has_file",
+      "pattern": "**/GDD_*.md",
+      "score": 30,
+      "description": "GDD in subdirectories"
+    },
+    {
+      "type": "document_pattern",
+      "keyword": "game design",
+      "score": 20,
+      "description": "README/docs에 game design 언급"
+    },
+    {
+      "type": "has_directory",
+      "pattern": "Content",
+      "score": 10,
+      "description": "Game asset directory"
+    },
+    {
+      "type": "framework",
+      "name": "ue5",
+      "score": 15,
+      "description": "Unreal Engine 사용 시"
+    },
+    {
+      "type": "framework",
+      "name": "unity",
+      "score": 15,
+      "description": "Unity 사용 시"
+    },
+    {
+      "type": "has_file",
+      "pattern": "Phase*.md",
+      "score": 10,
+      "description": "Phase 기반 개발 계획 존재"
+    }
+  ]
+}

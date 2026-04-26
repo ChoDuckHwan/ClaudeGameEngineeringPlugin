@@ -1,0 +1,53 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "2"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(xargs:*)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_INVOKE_PREFIX} ${PROJECT_ROOT}/.claude/hooks/check_handoff${HOOK_EXT}"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_INVOKE_PREFIX} ${PROJECT_ROOT}/.claude/hooks/update_marker${HOOK_EXT}"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_INVOKE_PREFIX} ${PROJECT_ROOT}/.claude/hooks/post_edit_alert${HOOK_EXT}"
+          }
+        ]
+      }
+    ]
+  }
+}

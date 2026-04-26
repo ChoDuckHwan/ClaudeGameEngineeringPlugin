@@ -1,0 +1,45 @@
+{
+  "id": "core",
+  "name": "CGE Core",
+  "version": "1.0.0",
+  "description": "Engineering-agnostic meta-agent core. Bootstraps projects, decides which engineerings/packs activate, manages lifecycle.",
+  "license": "MIT",
+  "provides": {
+    "skills": [
+      "cge-bootstrap",
+      "cge-rebootstrap",
+      "cge-install",
+      "cge-uninstall",
+      "cge-replace",
+      "cge-list",
+      "cge-mine-pattern",
+      "cge-sync-lessons"
+    ],
+    "agents": [
+      "project-analyst",
+      "engineering-selector",
+      "pack-matcher",
+      "conflict-resolver",
+      "installer"
+    ],
+    "policies": [
+      "_bootstrap_policy",
+      "_engineering_slot_spec",
+      "_pack_slot_spec"
+    ],
+    "hooks": [
+      "check_handoff",
+      "post_edit_alert",
+      "update_marker"
+    ],
+    "templates": [
+      "HARNESS.md.template",
+      "CLAUDE.md.template",
+      "settings.local.json.template",
+      "project-profile.json.template",
+      "skill-_template.md"
+    ]
+  },
+  "required": true,
+  "depends_on": []
+}

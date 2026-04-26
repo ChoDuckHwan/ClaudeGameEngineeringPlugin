@@ -1,0 +1,48 @@
+{
+  "id": "unreal",
+  "name": "Unreal Engine Pack",
+  "version": "1.0.0",
+  "description": "Unreal Engine 5.x 프로젝트용 도메인 자산. GAS·인벤토리·UI·빌드 스킬 + UE5 specialist 5종.",
+  "license": "MIT",
+  "author": "ChoDuckHwan",
+  "homepage": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin",
+
+  "domain": "game",
+  "subdomain": "ue5",
+  "frameworks": ["ue5", "gas"],
+  "languages": ["cpp", "blueprint"],
+
+  "depends_on_engineering": ["harness"],
+  "depends_on_pack": [],
+  "exclusive_with": [],
+
+  "provides": {
+    "skills": [
+      "combat-helper",
+      "gas-helper",
+      "inventory-helper",
+      "ui-helper",
+      "unreal-build-helper",
+      "unreal-engine"
+    ],
+    "agents": [
+      "gas-ability-developer",
+      "interaction-system",
+      "ue-performance-analyzer",
+      "unreal-architect",
+      "game-balance-designer"
+    ],
+    "team_templates": [],
+    "post_edit_mapping": "post-edit-map.json"
+  },
+
+  "post_install": {
+    "merge_post_edit_map": true,
+    "messages": [
+      "Unreal Engine 팩 활성화 완료 — UE5/GAS 코드 작업에 6 helper + 5 specialist 사용 가능",
+      "빌드: /unreal-build-helper 또는 unreal-architect 에이전트로 시스템 설계 자문"
+    ]
+  },
+
+  "tags": ["game", "ue5", "gas", "cpp", "blueprint"]
+}

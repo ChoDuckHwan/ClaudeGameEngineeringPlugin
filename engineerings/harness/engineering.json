@@ -1,0 +1,69 @@
+{
+  "id": "harness",
+  "name": "Harness Engineering",
+  "version": "1.0.0",
+  "description": "하네스 엔지니어링 — 6 디자인 패턴, Producer-Reviewer 재시도, 자가개선 정책, 토큰 최적화. ProjectFIB(UE5 협동 호러 게임)에서 추출되어 일반화.",
+  "license": "MIT",
+  "license_attribution": "revfactory/harness (Apache 2.0) — 6 패턴 분류 개념 흡수, affaan-m/everything-claude-code (MIT) — 토큰 정책 개념 흡수. 구체 본문은 독립 작성.",
+  "author": "ChoDuckHwan",
+  "homepage": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin",
+
+  "compatible_project_types": ["*"],
+  "exclusive_with": [],
+  "depends_on": ["core"],
+
+  "activation_signals": [
+    "always"
+  ],
+  "deactivation_signals": [
+    "user_choice"
+  ],
+
+  "provides": {
+    "skills": [
+      "harness-audit",
+      "harness-evolve",
+      "agent-router",
+      "session-log",
+      "skill-analyze",
+      "skill-scenario",
+      "skill-improve",
+      "skill-implement",
+      "skill-validate",
+      "skill-changelog"
+    ],
+    "agents": [
+      "design-pattern-advisor",
+      "security-vulnerability-analyzer",
+      "stress-test-runner"
+    ],
+    "policies": [
+      "_patterns",
+      "_retry_policy",
+      "_evolve_policy",
+      "_token_policy"
+    ],
+    "team_templates": [
+      "teammaker"
+    ],
+    "hooks": []
+  },
+
+  "post_install": {
+    "copy_policies_to": ".claude/team/",
+    "copy_team_templates_to": ".claude/team/",
+    "messages": [
+      "harness 엔지니어링 활성화 완료 — 6 디자인 패턴, Producer-Reviewer, 자가개선 정책 사용 가능",
+      "다음 명령으로 시작: /harness-audit (정합성 검사) 또는 /agent-router (specialist 자동 분배)"
+    ]
+  },
+
+  "tags": [
+    "meta",
+    "self-improvement",
+    "team-architecture",
+    "6-patterns",
+    "evolved-from-ue5",
+    "language-agnostic"
+  ]
+}

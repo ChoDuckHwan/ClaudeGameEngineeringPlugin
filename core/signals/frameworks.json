@@ -1,0 +1,75 @@
+{
+  "$schema": "Discovery signals — framework detection",
+  "version": "1.0.0",
+  "frameworks": {
+    "ue5": {
+      "build_system": "unreal_engine",
+      "version_signals": ["EngineAssociation in *.uproject"],
+      "domain_hint": "game"
+    },
+    "unity": {
+      "build_system": "unity",
+      "domain_hint": "game"
+    },
+    "react": {
+      "manifest_dependency": "react",
+      "manifest_files": ["package.json"],
+      "domain_hint": "web-frontend"
+    },
+    "next": {
+      "manifest_dependency": "next",
+      "manifest_files": ["package.json"],
+      "secondary_signals": ["next.config.js", "next.config.ts"],
+      "domain_hint": "web-fullstack"
+    },
+    "vue": {
+      "manifest_dependency": "vue",
+      "domain_hint": "web-frontend"
+    },
+    "express": {
+      "manifest_dependency": "express",
+      "domain_hint": "web-backend"
+    },
+    "nestjs": {
+      "manifest_dependency": "@nestjs/core",
+      "domain_hint": "web-backend"
+    },
+    "fastapi": {
+      "manifest_dependency": "fastapi",
+      "manifest_files": ["pyproject.toml", "requirements.txt"],
+      "domain_hint": "web-backend"
+    },
+    "django": {
+      "manifest_dependency": "django",
+      "domain_hint": "web-fullstack"
+    },
+    "flask": {
+      "manifest_dependency": "flask",
+      "domain_hint": "web-backend"
+    },
+    "pytorch": {
+      "manifest_dependency": "torch",
+      "domain_hint": "ml"
+    },
+    "tensorflow": {
+      "manifest_dependency": "tensorflow",
+      "domain_hint": "ml"
+    },
+    "langchain": {
+      "manifest_dependency": "langchain",
+      "domain_hint": "llm-app"
+    },
+    "anthropic_sdk": {
+      "manifest_dependency": "anthropic",
+      "domain_hint": "llm-app"
+    },
+    "react_native": {
+      "manifest_dependency": "react-native",
+      "domain_hint": "mobile"
+    },
+    "flutter": {
+      "manifests": ["pubspec.yaml"],
+      "domain_hint": "mobile"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "game-dev",
+  "name": "Game Development Pack",
+  "version": "1.0.0",
+  "description": "게임 개발 일반 (엔진 무관) 도메인 자산. GDD 분석·진행도·페이즈 리뷰·다음 작업 추천 + 13 도메인 팀 템플릿.",
+  "license": "MIT",
+  "author": "ChoDuckHwan",
+  "homepage": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin",
+
+  "domain": "game",
+  "subdomain": "any",
+  "frameworks": [],
+  "languages": ["any"],
+
+  "depends_on_engineering": ["harness"],
+  "depends_on_pack": [],
+  "exclusive_with": [],
+
+  "provides": {
+    "skills": [
+      "gap-analysis",
+      "phase-review",
+      "progress-check",
+      "next-task",
+      "game-design-core"
+    ],
+    "agents": [],
+    "team_templates": [
+      "ai", "animation", "audio", "balance", "combat", "horror",
+      "interaction", "mission", "network", "player", "skill", "ui"
+    ],
+    "post_edit_mapping": null
+  },
+
+  "post_install": {
+    "copy_team_templates_to": ".claude/team/",
+    "messages": [
+      "Game Dev 팩 활성화 완료 — GDD↔구현 갭 분석, Phase 리뷰, 13 도메인 팀 템플릿 사용 가능",
+      "다음 명령: /progress-check, /gap-analysis, /next-task, /phase-review"
+    ]
+  },
+
+  "tags": ["game", "gdd", "phase-management", "language-agnostic"]
+}

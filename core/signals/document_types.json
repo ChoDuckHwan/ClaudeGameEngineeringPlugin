@@ -1,0 +1,81 @@
+{
+  "$schema": "Discovery signals — document type detection for Phase 1 Analysis",
+  "version": "1.0.0",
+  "document_types": {
+    "readme": {
+      "patterns": ["README.md", "README.MD", "Readme.md"],
+      "weight": 10,
+      "purpose": "project overview"
+    },
+    "architecture": {
+      "patterns": ["ARCHITECTURE.md", "docs/architecture.md", ".claude/ARCHITECTURE.md"],
+      "weight": 9,
+      "purpose": "technical structure"
+    },
+    "claude_md": {
+      "patterns": ["CLAUDE.md", ".claude/CLAUDE.md"],
+      "weight": 10,
+      "purpose": "claude-specific instructions"
+    },
+    "harness_md": {
+      "patterns": ["HARNESS.md", ".claude/HARNESS.md"],
+      "weight": 8,
+      "purpose": "harness layer map"
+    },
+    "prd": {
+      "patterns": ["PRD.md", "docs/PRD.md", "PRD-*.md"],
+      "weight": 9,
+      "purpose": "product requirements"
+    },
+    "rfc": {
+      "patterns": ["RFC*.md", "docs/RFC*", "rfcs/*.md"],
+      "weight": 7,
+      "purpose": "design decisions"
+    },
+    "gdd": {
+      "patterns": ["GDD*.md", "GDD_*.md", "docs/GDD*"],
+      "weight": 9,
+      "purpose": "game design",
+      "domain_hint": "game"
+    },
+    "phase_docs": {
+      "patterns": ["Phase*.md", "*Phase*.md"],
+      "weight": 7,
+      "purpose": "phased implementation plan"
+    },
+    "api_docs": {
+      "patterns": ["docs/api/*.md", "API.md"],
+      "weight": 6,
+      "purpose": "api reference"
+    },
+    "contributing": {
+      "patterns": ["CONTRIBUTING.md", ".github/CONTRIBUTING.md"],
+      "weight": 5,
+      "purpose": "team conventions"
+    },
+    "changelog": {
+      "patterns": ["CHANGELOG.md", "HISTORY.md"],
+      "weight": 4,
+      "purpose": "change history"
+    },
+    "session_handoff": {
+      "patterns": ["SESSION_HANDOFF.md", ".claude/SESSION_HANDOFF.md"],
+      "weight": 6,
+      "purpose": "previous session context"
+    }
+  },
+  "scan_depth": {
+    "max_directory_depth": 4,
+    "exclude_dirs": ["node_modules", "Intermediate", "DerivedDataCache", "Saved", "Build", ".git", "dist", "build", "target", "Pods"]
+  },
+  "phase1_input_priority": [
+    "readme",
+    "architecture",
+    "claude_md",
+    "prd",
+    "gdd",
+    "phase_docs",
+    "rfc",
+    "session_handoff"
+  ]
+}

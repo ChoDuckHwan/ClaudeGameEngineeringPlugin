@@ -1,0 +1,133 @@
+{
+  "$schema_note": "Claude Code marketplace 공식 스키마 URL은 v2 출시 시점에 확정 예정. 본 매니페스트는 일반적 플러그인 매니페스트 패턴을 따름.",
+  "name": "ClaudeGameEngineeringPlugin",
+  "displayName": "Claude Game Engineering Plugin (CGE)",
+  "version": "1.0.0-alpha",
+  "description": "각 프로젝트를 읽고 자기 자신을 재구성하는 메타-에이전트 플러그인. 하네스 엔지니어링은 첫 번째 탑재 슬롯.",
+  "author": {
+    "name": "ChoDuckHwan",
+    "url": "https://github.com/ChoDuckHwan"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin.git"
+  },
+  "keywords": [
+    "meta-agent",
+    "harness-engineering",
+    "adaptive-bootstrap",
+    "engineering-slots",
+    "self-improvement",
+    "team-architecture",
+    "game-development",
+    "ue5",
+    "korean"
+  ],
+  "engines": {
+    "claude-code": ">=2.0.0"
+  },
+  "env": {
+    "recommended": {
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "2"
+    }
+  },
+  "skills": [
+    {
+      "id": "cge-bootstrap",
+      "path": "core/skills/cge-bootstrap/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-rebootstrap",
+      "path": "core/skills/cge-rebootstrap/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-install",
+      "path": "core/skills/cge-install/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-uninstall",
+      "path": "core/skills/cge-uninstall/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-replace",
+      "path": "core/skills/cge-replace/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-list",
+      "path": "core/skills/cge-list/SKILL.md",
+      "category": "lifecycle"
+    },
+    {
+      "id": "cge-mine-pattern",
+      "path": "core/skills/cge-mine-pattern/SKILL.md",
+      "category": "learning"
+    },
+    {
+      "id": "cge-sync-lessons",
+      "path": "core/skills/cge-sync-lessons/SKILL.md",
+      "category": "learning"
+    }
+  ],
+  "agents": [
+    { "id": "project-analyst", "path": "core/agents/project-analyst.md" },
+    { "id": "engineering-selector", "path": "core/agents/engineering-selector.md" },
+    { "id": "pack-matcher", "path": "core/agents/pack-matcher.md" },
+    { "id": "conflict-resolver", "path": "core/agents/conflict-resolver.md" },
+    { "id": "installer", "path": "core/agents/installer.md" }
+  ],
+  "hooks": {
+    "Stop": [
+      {
+        "command": "${CGE_HOOK_INVOKE} ${CGE_PLUGIN_ROOT}/core/hooks/check_handoff${CGE_HOOK_EXT}",
+        "description": "세션 종료 시 핸드오프 갱신 강제 (substantive 턴 검출)"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "command": "${CGE_HOOK_INVOKE} ${CGE_PLUGIN_ROOT}/core/hooks/update_marker${CGE_HOOK_EXT}",
+        "description": "마커 mtime 갱신 (Stop 훅 baseline)"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "${CGE_HOOK_INVOKE} ${CGE_PLUGIN_ROOT}/core/hooks/post_edit_alert${CGE_HOOK_EXT}",
+        "description": "Edit/Write 후 언어·매니페스트 변경 시 후속 작업 알림"
+      }
+    ]
+  },
+  "components": {
+    "engineerings_dir": "engineerings/",
+    "engineerings_user_dir": "engineerings/_user/",
+    "packs_dir": "packs/",
+    "packs_user_dir": "packs/_user/",
+    "core_dir": "core/",
+    "templates_dir": "core/templates/",
+    "signals_dir": "core/signals/",
+    "policies_dir": "core/policies/",
+    "meta_dir": "_meta/",
+    "user_directories_note": "_user/ 하위는 사용자 자작 자산 격리 영역 — 본체 git pull 시 보존"
+  },
+  "bootstrap": {
+    "auto_on_install": true,
+    "skill_id": "cge-bootstrap",
+    "mode": "hybrid",
+    "comment": "첫 부착 시 자동 5-Phase 진행, Phase 4(Activation)는 사용자 승인 필수"
+  },
+  "post_install_message": [
+    "✅ ClaudeGameEngineeringPlugin 설치 완료",
+    "다음 명령으로 프로젝트에 부착: /cge bootstrap",
+    "이 플러그인은 5-Phase 적응 워크플로우로 프로젝트를 분석한 뒤 적합한 자산을 활성화합니다.",
+    "활성 자산 확인: /cge list",
+    "문서: docs/meta-agent-philosophy.md, docs/adaptive-bootstrap.md"
+  ],
+  "contributing": "CONTRIBUTING.md",
+  "changelog": "CHANGELOG.md"
+}

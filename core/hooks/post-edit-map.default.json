@@ -1,0 +1,31 @@
+{
+  "$schema": "PostToolUse mapping — language/file pattern → alert message",
+  "version": "1.0.0",
+  "watch_paths": [
+    "${PROJECT_ROOT}/Source",
+    "${PROJECT_ROOT}/src",
+    "${PROJECT_ROOT}/app",
+    "${PROJECT_ROOT}/lib",
+    "${PROJECT_ROOT}/Content",
+    "${PROJECT_ROOT}/Config"
+  ],
+  "allow_outside_watch": true,
+  "mappings": [
+    {
+      "id": "config-ini",
+      "patterns": ["*.ini"],
+      "message": "설정 변경 — 에디터 재시작으로 적용 확인 권장"
+    },
+    {
+      "id": "json-config",
+      "patterns": ["*tsconfig.json", "*pyproject.toml", "*Cargo.toml"],
+      "message": "빌드 설정 변경 — 의존성·컴파일 옵션 영향 확인"
+    },
+    {
+      "id": "markdown-doc",
+      "patterns": ["*CLAUDE.md", "*HARNESS.md"],
+      "message": "하네스 문서 변경 — harness-audit 실행 권장"
+    }
+  ],
+  "comment": "팩이 부착되면 추가 매핑이 병합됩니다 (예: unreal-pack의 cpp/h/uproject 매핑)."
+}

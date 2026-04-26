@@ -1,0 +1,56 @@
+{
+  "$schema": "Pack activation criteria — pack-matcher uses this for scoring",
+  "version": "1.0",
+  "scoring": {
+    "max_score": 100,
+    "auto_recommend_threshold": 80,
+    "user_query_threshold": 50
+  },
+  "criteria": [
+    {
+      "type": "has_file",
+      "pattern": "*.uproject",
+      "score": 50,
+      "required": true,
+      "description": "UE 프로젝트 파일 (필수)"
+    },
+    {
+      "type": "has_directory",
+      "pattern": "Source",
+      "score": 15,
+      "description": "C++ 소스 디렉토리"
+    },
+    {
+      "type": "has_directory",
+      "pattern": "Content",
+      "score": 10,
+      "description": "에셋 디렉토리"
+    },
+    {
+      "type": "has_directory",
+      "pattern": "Config",
+      "score": 5,
+      "description": "INI 설정 디렉토리"
+    },
+    {
+      "type": "language",
+      "primary": "cpp",
+      "score": 10,
+      "description": "주 언어가 C++"
+    },
+    {
+      "type": "has_dependency",
+      "manifest_glob": "*.uproject",
+      "name": "GameplayAbilities",
+      "score": 5,
+      "description": "GAS 사용 시"
+    },
+    {
+      "type": "has_dependency",
+      "manifest_glob": "*.uproject",
+      "name": "EnhancedInput",
+      "score": 5,
+      "description": "Enhanced Input 사용 시"
+    }
+  ]
+}

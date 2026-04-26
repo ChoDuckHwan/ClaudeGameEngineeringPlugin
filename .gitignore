@@ -1,0 +1,20 @@
+# Plugin development artifacts
+_meta/HISTORY.md.bak
+*.log
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Test artifacts
+test-output/
+dummy-projects/
+
+# User local state
+_local/

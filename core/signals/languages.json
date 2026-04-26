@@ -1,0 +1,75 @@
+{
+  "$schema": "Discovery signals — language detection by file extensions",
+  "version": "1.0.0",
+  "languages": {
+    "cpp": {
+      "extensions": [".cpp", ".cc", ".cxx", ".h", ".hpp"],
+      "min_count_for_signal": 5
+    },
+    "csharp": {
+      "extensions": [".cs"],
+      "min_count_for_signal": 3
+    },
+    "typescript": {
+      "extensions": [".ts", ".tsx"],
+      "min_count_for_signal": 3
+    },
+    "javascript": {
+      "extensions": [".js", ".jsx", ".mjs"],
+      "min_count_for_signal": 3
+    },
+    "python": {
+      "extensions": [".py"],
+      "min_count_for_signal": 3
+    },
+    "rust": {
+      "extensions": [".rs"],
+      "min_count_for_signal": 3
+    },
+    "go": {
+      "extensions": [".go"],
+      "min_count_for_signal": 3
+    },
+    "swift": {
+      "extensions": [".swift"],
+      "min_count_for_signal": 3
+    },
+    "kotlin": {
+      "extensions": [".kt", ".kts"],
+      "min_count_for_signal": 3
+    },
+    "java": {
+      "extensions": [".java"],
+      "min_count_for_signal": 3
+    },
+    "ruby": {
+      "extensions": [".rb"],
+      "min_count_for_signal": 3
+    },
+    "php": {
+      "extensions": [".php"],
+      "min_count_for_signal": 3
+    },
+    "shader_hlsl": {
+      "extensions": [".hlsl", ".usf", ".ush"],
+      "min_count_for_signal": 1
+    },
+    "blueprint": {
+      "extensions": [".uasset"],
+      "manifest_required": "*.uproject",
+      "min_count_for_signal": 1
+    },
+    "shell": {
+      "extensions": [".sh", ".bash", ".zsh"],
+      "min_count_for_signal": 1
+    },
+    "powershell": {
+      "extensions": [".ps1", ".psm1"],
+      "min_count_for_signal": 1
+    },
+    "markdown": {
+      "extensions": [".md"],
+      "min_count_for_signal": 1
+    }
+  }
+}

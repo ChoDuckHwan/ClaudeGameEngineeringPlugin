@@ -1,0 +1,65 @@
+{
+  "$schema": "CGE Project Profile — single source of truth for active assets",
+  "cge_version": "1.0.0",
+  "bootstrapped_at": "${ISO_TIMESTAMP}",
+  "last_rebootstrap": "${ISO_TIMESTAMP}",
+
+  "project": {
+    "name": "${PROJECT_NAME}",
+    "type": "${PROJECT_TYPE}",
+    "subtype": "${PROJECT_SUBTYPE}",
+    "root": "${PROJECT_ROOT}",
+    "stage": "${PROJECT_STAGE}"
+  },
+
+  "languages": [],
+  "frameworks": [],
+  "build_system": "${BUILD_SYSTEM}",
+
+  "domains_detected": [],
+  "domains_high_priority": [],
+  "domains_optional": [],
+
+  "active_engineerings": [
+    {
+      "id": "harness",
+      "version": "1.0.0",
+      "activated_at": "${ISO_TIMESTAMP}",
+      "user_modifications": []
+    }
+  ],
+
+  "active_packs": [],
+
+  "active_assets": {
+    "skills": [],
+    "agents": [],
+    "team_templates": [],
+    "hooks": []
+  },
+
+  "policy_overrides": {
+    "max_retry": 2,
+    "max_thinking_tokens": 10000,
+    "default_model": "sonnet"
+  },
+
+  "missing_domains_queue": [],
+  "user_decisions": [],
+
+  "conventions": {
+    "naming": "",
+    "language_style": "",
+    "test_policy": ""
+  },
+
+  "constraints": {
+    "realtime": false,
+    "multiplayer": null,
+    "platform": []
+  },
+
+  "team_size": 1,
+
+  "lessons_synced_at": null
+}

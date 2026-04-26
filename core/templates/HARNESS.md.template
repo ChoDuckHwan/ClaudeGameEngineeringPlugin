@@ -1,0 +1,88 @@
+# ${PROJECT_NAME} Harness Map
+
+CGE(Claude Game Engineering Plugin) 부착으로 생성된 하네스 인덱스.
+각 자산이 **어느 레이어에 속하는지**, **언제 활성화되는지**, **무엇을 입출력하는지** 한눈에 보이도록 정리.
+
+> **메타데이터**:
+> - CGE 버전: ${CGE_VERSION}
+> - Bootstrap: ${BOOTSTRAP_TIMESTAMP}
+> - 활성 엔지니어링: ${ACTIVE_ENGINEERINGS}
+> - 활성 팩: ${ACTIVE_PACKS}
+
+---
+
+## L0 · Context Layer (영구 시스템 프롬프트)
+
+| 자산 | 위치 | 역할 |
+|------|------|------|
+| Project Instructions | [CLAUDE.md](CLAUDE.md) | 프로젝트 시스템·컨벤션·표준 |
+| User Memory Index | `~/.claude/projects/.../memory/MEMORY.md` | 자동 메모리 진입점 |
+| Project Profile | [.claude/_project_profile.json](_project_profile.json) | CGE가 관리하는 활성 자산 진실 |
+
+---
+
+## L1 · Memory Layer (영속 + 세션 간 인계)
+
+${MEMORY_LAYER_ENTRIES}
+
+---
+
+## L2 · Skill Layer (사용자 호출형 절차)
+
+${SKILL_LAYER_ENTRIES}
+
+---
+
+## L3 · Agent Layer (Task tool로 호출)
+
+${AGENT_LAYER_ENTRIES}
+
+---
+
+## L4 · Tool & Permission Layer
+
+${TOOL_PERMISSION_LAYER_ENTRIES}
+
+---
+
+## L5 · Knowledge Layer (참조용 도큐먼트)
+
+${KNOWLEDGE_LAYER_ENTRIES}
+
+---
+
+## CGE 메타 — 엔지니어링 슬롯 상태
+
+| 슬롯 | 상태 | 버전 |
+|------|------|------|
+${ENGINEERING_SLOT_TABLE}
+
+| 팩 | 상태 | 버전 |
+|----|------|------|
+${PACK_SLOT_TABLE}
+
+---
+
+## 활성화 매트릭스
+
+| 트리거 | 활성화되는 레이어 |
+|--------|---------------------|
+| 매 턴 시작 | L0 (CLAUDE.md, MEMORY.md) |
+| 새 세션 첫 메시지 | L0 + L1 (SESSION_HANDOFF.md 자동 읽기) |
+| 세션 종료 (Stop 훅) | L1 (session-log → SESSION_HANDOFF 갱신) |
+| 도메인 키워드 | L2 도메인 스킬 자동 트리거 |
+| `/skill-name` 명시 호출 | L2 해당 스킬 |
+| Task tool 호출 | L3-A 단일 에이전트 |
+| 팀 워크플로우 명시 | L3-B 도메인 팀 |
+| `/cge install/uninstall/replace` | CGE 라이프사이클 |
+
+---
+
+## 정리 권장사항 (개선 백로그)
+
+- (자동 채워짐: harness-audit 결과 또는 사용자 추가)
+
+---
+
+> 이 파일은 CGE bootstrap이 자동 생성한 골격입니다. 사용자가 직접 편집 가능하나,
+> `/cge rebootstrap` 시 `${ACTIVE_ENGINEERINGS}` / `${ACTIVE_PACKS}` 영역은 갱신될 수 있습니다.
