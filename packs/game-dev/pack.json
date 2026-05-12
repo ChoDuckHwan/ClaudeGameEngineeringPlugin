@@ -1,8 +1,8 @@
 {
   "id": "game-dev",
   "name": "Game Development Pack",
-  "version": "1.0.0",
-  "description": "게임 개발 일반 (엔진 무관) 도메인 자산. GDD 분석·진행도·페이즈 리뷰·다음 작업 추천 + 13 도메인 팀 템플릿.",
+  "version": "1.1.0",
+  "description": "게임 개발 일반 (엔진 무관) 도메인 자산. GDD 분석·진행도·페이즈 리뷰·다음 작업 추천 + 13 도메인 팀 템플릿 + 레벨 단위 진행도 관리 (level-* 스킬 5종 + 표준 템플릿).",
   "license": "MIT",
   "author": "ChoDuckHwan",
   "homepage": "https://github.com/ChoDuckHwan/ClaudeGameEngineeringPlugin",
@@ -22,21 +22,32 @@
       "phase-review",
       "progress-check",
       "next-task",
-      "game-design-core"
+      "game-design-core",
+      "level-init",
+      "level-status",
+      "level-update",
+      "level-next",
+      "level-review"
     ],
     "agents": [],
     "team_templates": [
       "ai", "animation", "audio", "balance", "combat", "horror",
       "interaction", "mission", "network", "player", "skill", "ui"
     ],
+    "templates": [
+      "_LEVEL_TEMPLATE"
+    ],
     "post_edit_mapping": null
   },
 
   "post_install": {
     "copy_team_templates_to": ".claude/team/",
+    "copy_templates_to": ".claude/Scenarios/",
     "messages": [
-      "Game Dev 팩 활성화 완료 — GDD↔구현 갭 분석, Phase 리뷰, 13 도메인 팀 템플릿 사용 가능",
-      "다음 명령: /progress-check, /gap-analysis, /next-task, /phase-review"
+      "Game Dev 팩 활성화 완료 — GDD↔구현 갭 분석, Phase 리뷰, 13 도메인 팀 템플릿, 레벨 단위 진행도 관리 사용 가능",
+      "전체 명령: /progress-check /gap-analysis /next-task /phase-review",
+      "레벨 명령: /level-init /level-status /level-update /level-next /level-review",
+      "레벨 작업 시작: /level-init <LevelName> (예: UnderwaterFacility, Tanker)"
     ]
   },
 

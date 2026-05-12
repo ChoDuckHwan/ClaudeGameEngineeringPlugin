@@ -54,6 +54,7 @@ Step 6. 모든 worker 완료 시 09_history에 분배 패턴 기록
 | 08 | 테스터 | `mission-tester` | opus | 1-4인 풀 사이클, 잠금실 변형, GameFeature 토글, 호스트 종료 |
 | 09 | 히스토리 | `mission-history` | sonnet | 활동/세션 분석/정산 곡선/리텐션 누적 |
 | 10 | 기능 활성화 | `mission-feature-activator` | opus | Experience DataAsset, ContractDefinition, GameFeature 플러그인, Lobby/Map 등록 가이드 |
+| 11 | 레벨 오케스트레이터 | `mission-level-orchestrator` | opus | 9 테마 레벨의 마스터 문서(`.claude/Scenarios/`) 진행도 동기화 + Phase A~G 게이트 + Cross-Team 호출 추천 (`/level-*` 스킬 연계) |
 
 ## 워크플로우
 
