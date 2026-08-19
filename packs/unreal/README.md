@@ -12,7 +12,8 @@ Unreal Engine 5.x 게임 개발에 특화된 helper 스킬 + specialist 에이�
 
 ## Provides
 
-### Skills (7)
+### Skills (8)
+- `bp-visualize` — **Widget/BT/AnimBP 작업 가이드를 인터랙티브 HTML로 생성** (따라 만드는 용도)
 - `combat-helper` — 전투 시스템 (무기·근접·원거리·AI·스태미나·데미지)
 - `gas-helper` — GAS 코드 템플릿 (프로젝트 규약 기준)
 - `gas-master` — **GAS 심층 레퍼런스, UE 5.8 소스로 검증** (9 refs, ~2.4k 줄)

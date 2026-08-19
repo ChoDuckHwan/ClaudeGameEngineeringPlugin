@@ -9,6 +9,10 @@
   [tranek/GASDocumentation](https://github.com/tranek/GASDocumentation)(MIT, UE 5.3 기준)에서
   파생해 **UE 5.8 플러그인 소스로 항목별 재검증**. 5.3↔5.8 델타, Lyra가 이미 제공하는 것,
   증상별 디버깅 표를 포함. unreal 팩 1.0.0 → 1.1.0.
+- **`packs/unreal/skills/bp-visualize`** — Widget Blueprint / BehaviorTree / AnimBP 상태머신
+  작업 가이드를 좌측 노드 그래프 + 우측 단계 리스트의 **인터랙티브 HTML**로 동시 생성.
+  ProjectFIB에서 이식하면서 하드코딩 경로·프로젝트 고유 클래스명·깨진 상대링크 4개를 정리.
+  unreal 팩 1.1.0 → 1.2.0.
 - `NOTICE` — 서드파티 귀속 표시 (GASDocumentation MIT)
 - `engineerings/_user/README.md` + `packs/_user/README.md` — 사용자 자작 자산 격리 영역 가이드
 - `CONTRIBUTING.md` — 7 종 기여 종류 + PR 형식 + 명명 규칙

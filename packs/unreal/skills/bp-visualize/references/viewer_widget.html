@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>{{ASSET_NAME}} — Widget Blueprint Guide</title>
+<script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+<script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+<style>
+:root { --bg:#1e1e1e; --fg:#e0e0e0; --panel:#2d2d2d; --panel2:#252525;
+  --border:#3e3e3e; --accent:#4a9eff; --muted:#888; --hl:#ff5722; --done:#4caf50; }
+body.light { --bg:#fafafa; --fg:#222; --panel:#fff; --panel2:#f3f3f3;
+  --border:#ddd; --accent:#0066cc; --muted:#777; --hl:#d84315; --done:#388e3c; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; height:100%; }
+body { font-family:'Segoe UI', -apple-system, sans-serif; background:var(--bg); color:var(--fg);
+  display:flex; flex-direction:column; overflow:hidden; }
+header { padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--border);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap; flex-shrink:0; }
+header h1 { margin:0; font-size:15px; font-weight:500; }
+header .sub { color:var(--muted); font-size:12px; margin-left:6px; }
+.btn { padding:4px 10px; background:var(--accent); color:#fff; border:none;
+  border-radius:4px; cursor:pointer; font-size:12px; }
+.btn.sec { background:var(--panel2); color:var(--fg); border:1px solid var(--border); }
+.btn:hover { opacity:0.9; }
+.search { padding:4px 8px; background:var(--bg); color:var(--fg);
+  border:1px solid var(--border); border-radius:4px; min-width:160px; font-size:12px; }
+.legend { display:flex; gap:3px; font-size:10px; flex-wrap:wrap; }
+.legend span { padding:2px 6px; border-radius:3px; font-weight:500; }
+main { flex:1; display:flex; overflow:hidden; min-height:0; }
+#cy { flex:1; background:var(--bg); min-width:0; }
+aside { width:380px; display:flex; flex-direction:column;
+  background:var(--panel); border-left:1px solid var(--border); }
+.panel { padding:10px 14px; overflow-y:auto; }
+.panel h2 { margin:0 0 8px 0; font-size:13px; color:var(--accent);
+  border-bottom:1px solid var(--border); padding-bottom:4px; font-weight:600;
+  display:flex; align-items:center; justify-content:space-between; }
+#steps-panel { flex:1; border-bottom:1px solid var(--border); min-height:200px; }
+#details-panel { flex:0 0 38%; background:var(--panel2); }
+.step { padding:8px 10px; margin:4px 0; background:var(--panel2);
+  border-left:3px solid transparent; border-radius:4px; cursor:pointer;
+  display:flex; gap:8px; align-items:flex-start; font-size:12px; line-height:1.45;
+  transition:all 0.15s; }
+.step:hover { background:var(--bg); border-left-color:var(--accent); }
+.step.active { background:rgba(74,158,255,0.15); border-left-color:var(--accent); }
+.step.done .num { background:var(--done); }
+.step.done .text { text-decoration:line-through; opacity:0.6; }
+.step .num { flex:0 0 22px; height:22px; background:var(--accent); color:#fff;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:bold; }
+.step .text { flex:1; }
+.step .check { flex:0 0 16px; cursor:pointer; margin-top:3px; }
+.row { display:flex; padding:3px 0; border-bottom:1px dotted var(--border); font-size:12px; }
+.key { flex:0 0 95px; color:var(--muted); font-size:11px; }
+.val { flex:1; word-break:break-all; font-family:'Consolas',monospace; font-size:11px; }
+.empty { color:var(--muted); font-style:italic; padding:12px 0; text-align:center; font-size:12px; }
+.section { margin-top:10px; }
+footer { padding:3px 14px; font-size:10px; color:var(--muted);
+  background:var(--panel); border-top:1px solid var(--border); flex-shrink:0; }
+@media (max-width: 900px) { aside { width:320px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Widget Blueprint<span class="sub" id="subtitle"></span></h1>
+  <input class="search" id="search" placeholder="🔍 노드 검색...">
+  <button class="btn" onclick="cy.fit(null, 40)">Fit</button>
+  <button class="btn sec" onclick="document.body.classList.toggle('light')">🌓</button>
+  <button class="btn sec" onclick="resetSteps()">진행도 리셋</button>
+  <div class="legend">
+    <span style="background:#4a9eff;color:#fff">Panel</span>
+    <span style="background:#7ed957;color:#000">Text</span>
+    <span style="background:#ffa726;color:#000">Button</span>
+    <span style="background:#9c27b0;color:#fff">Image</span>
+    <span style="background:#888;color:#fff">Other</span>
+  </div>
+</header>
+<main>
+  <div id="cy"></div>
+  <aside>
+    <div class="panel" id="steps-panel">
+      <h2><span>📋 작업 단계</span> <span id="progress" style="font-size:11px;font-weight:normal;color:var(--muted)">0 / 0</span></h2>
+      <div id="steps-list"></div>
+    </div>
+    <div class="panel" id="details-panel">
+      <h2>🔍 노드 상세</h2>
+      <div id="details">
+        <div class="empty">노드를 클릭하거나<br>왼쪽 단계를 클릭하세요</div>
+      </div>
+    </div>
+  </aside>
+</main>
+<footer id="footer">bp-visualize • Widget Blueprint Authoring Guide</footer>
+
+<script>
+// === DSL 데이터 (Claude가 주입) ===
+const DSL = /*<<DATA>>*/ {
+  "target": "WidgetBlueprint",
+  "name": "Demo",
+  "goal": "데모 위젯",
+  "tree": [
+    { "id": "Root", "class": "CanvasPanel", "children": [
+      { "id": "HBox", "class": "HorizontalBox", "slot": {"anchors":"Center"}, "children": [
+        { "id": "Bar", "class": "ProgressBar" },
+        { "id": "Txt", "class": "TextBlock", "props":{"text":"100"} }
+      ]}
+    ]}
+  ],
+  "steps": [
+    { "id":"s1", "text":"위젯 신규 생성", "highlight":[] },
+    { "id":"s2", "text":"CanvasPanel 루트 확인", "highlight":["Root"] },
+    { "id":"s3", "text":"HorizontalBox 추가", "highlight":["HBox"] },
+    { "id":"s4", "text":"ProgressBar 추가", "highlight":["Bar"] },
+    { "id":"s5", "text":"TextBlock 추가", "highlight":["Txt"] }
+  ]
+};
+
+function classifyWidget(cls) {
+  const l = cls.toLowerCase();
+  if (/panel|box|canvas|grid|overlay|scrollbox|wrapbox|sizebox|border/.test(l)) return "panel";
+  if (/text|richtext/.test(l)) return "text";
+  if (/button|checkbox|togglebutton/.test(l)) return "button";
+  if (/image|icon/.test(l)) return "image";
+  return "other";
+}
+
+const elements = [];
+function walk(nodes, parentId) {
+  (nodes || []).forEach(n => {
+    elements.push({ data: { id:n.id, label:`${n.id}\n(${n.class})`, category:classifyWidget(n.class), full:n }});
+    if (parentId) elements.push({ data: { id:`${parentId}->${n.id}`, source:parentId, target:n.id }});
+    if (n.children) walk(n.children, n.id);
+  });
+}
+walk(DSL.tree || [], null);
+
+document.getElementById('title').firstChild.textContent = (DSL.name || 'Widget') + " ";
+document.getElementById('subtitle').textContent = "— " + (DSL.goal || 'Widget Blueprint');
+document.title = (DSL.name || 'Widget') + " — Widget Blueprint Guide";
+document.getElementById('footer').textContent =
+  `bp-visualize • ${DSL.name} • 노드 ${elements.filter(e=>!e.data.source).length} • 단계 ${(DSL.steps||[]).length}`;
+
+const cy = cytoscape({
+  container: document.getElementById('cy'),
+  elements,
+  wheelSensitivity: 0.2,
+  style: [
+    { selector:'node', style:{
+      'label':'data(label)','text-wrap':'wrap','text-valign':'center','text-halign':'center',
+      'color':'#fff','font-size':10,'font-family':'Consolas,monospace',
+      'shape':'round-rectangle','width':'label','height':'label','padding':'10px',
+      'background-color':'#888','border-width':1,'border-color':'#222',
+      'text-outline-color':'#000','text-outline-width':0.5
+    }},
+    { selector:'node[category="panel"]', style:{'background-color':'#4a9eff'}},
+    { selector:'node[category="text"]', style:{'background-color':'#7ed957','color':'#000','text-outline-color':'#fff'}},
+    { selector:'node[category="button"]', style:{'background-color':'#ffa726','color':'#000','text-outline-color':'#fff'}},
+    { selector:'node[category="image"]', style:{'background-color':'#9c27b0'}},
+    { selector:'edge', style:{'width':1.5,'line-color':'#666','curve-style':'taxi','taxi-direction':'downward','taxi-turn':20}},
+    { selector:'node:selected', style:{'border-color':'#fff','border-width':3}},
+    { selector:'.highlight', style:{'border-color':'#ff5722','border-width':5,'background-blacken':-0.1}},
+    { selector:'.dim', style:{'opacity':0.25}},
+  ],
+  layout: { name:'dagre', rankDir:'TB', spacingFactor:1.1, nodeSep:30, rankSep:55, fit:true, padding:25 }
+});
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// === Steps ===
+const stepStates = (DSL.steps || []).map(() => false);
+
+function renderSteps() {
+  const list = document.getElementById('steps-list');
+  list.innerHTML = (DSL.steps || []).map((s, i) => `
+    <div class="step ${stepStates[i]?'done':''}" data-idx="${i}">
+      <input type="checkbox" class="check" ${stepStates[i]?'checked':''} onclick="event.stopPropagation();toggleStep(${i})">
+      <div class="num">${i+1}</div>
+      <div class="text">${escapeHtml(s.text)}</div>
+    </div>
+  `).join('');
+  list.querySelectorAll('.step').forEach(el => {
+    el.addEventListener('click', () => activateStep(parseInt(el.dataset.idx)));
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = stepStates.filter(Boolean).length;
+  document.getElementById('progress').textContent = `${done} / ${stepStates.length}`;
+}
+
+function toggleStep(idx) {
+  stepStates[idx] = !stepStates[idx];
+  renderSteps();
+}
+
+function resetSteps() {
+  for (let i=0; i<stepStates.length; i++) stepStates[i] = false;
+  renderSteps();
+}
+
+let activeStepIdx = -1;
+function activateStep(idx) {
+  activeStepIdx = idx;
+  document.querySelectorAll('.step').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  const step = DSL.steps[idx];
+  cy.elements().removeClass('highlight').removeClass('dim');
+  const hl = step.highlight || [];
+  if (hl.length === 0) {
+    showStepDetails(step);
+    return;
+  }
+  const matched = cy.nodes().filter(n => hl.includes(n.data('id')));
+  cy.nodes().not(matched).addClass('dim');
+  matched.addClass('highlight');
+  if (matched.length > 0) {
+    cy.animate({ fit: { eles: matched, padding: 80 }, duration: 350 });
+  }
+  showStepDetails(step, matched.map(n => n.data('full')));
+}
+
+function showStepDetails(step, nodes) {
+  const nodeInfo = (nodes && nodes.length) ? `
+    <div class="section">
+      <h2 style="border:none;margin-bottom:4px">강조 노드 (${nodes.length})</h2>
+      ${nodes.map(n => nodeRows(n)).join('<hr style="border:none;border-top:1px dashed var(--border);margin:6px 0">')}
+    </div>` : '';
+  document.getElementById('details').innerHTML = `
+    <div class="row"><div class="key">step</div><div class="val">${step.id || '#'+(activeStepIdx+1)}</div></div>
+    <div class="row"><div class="key">action</div><div class="val">${escapeHtml(step.text)}</div></div>
+    ${nodeInfo}
+  `;
+}
+
+function nodeRows(d) {
+  if (!d) return '';
+  const renderObj = (obj, title) => {
+    if (!obj || Object.keys(obj).length === 0) return '';
+    const rows = Object.entries(obj).map(([k,v]) =>
+      `<div class="row"><div class="key">${escapeHtml(k)}</div><div class="val">${escapeHtml(String(v))}</div></div>`).join('');
+    return `<div class="section"><h2 style="border:none;margin-bottom:4px">${title}</h2>${rows}</div>`;
+  };
+  return `
+    <div class="row"><div class="key">id</div><div class="val"><strong>${escapeHtml(d.id)}</strong></div></div>
+    <div class="row"><div class="key">class</div><div class="val">${escapeHtml(d.class)}</div></div>
+    ${d.note ? `<div class="row"><div class="key">note</div><div class="val">${escapeHtml(d.note)}</div></div>` : ''}
+    ${renderObj(d.slot, 'Slot')}
+    ${renderObj(d.props, 'Props')}
+  `;
+}
+
+cy.on('tap', 'node', e => {
+  const d = e.target.data('full');
+  // 해당 노드를 참조하는 단계도 강조
+  const refSteps = (DSL.steps || []).map((s, i) => (s.highlight || []).includes(d.id) ? i+1 : null).filter(x => x);
+  document.getElementById('details').innerHTML = `
+    ${nodeRows(d)}
+    ${refSteps.length ? `<div class="section"><h2 style="border:none;margin-bottom:4px">관련 단계</h2>
+      <div style="font-size:11px;color:var(--muted)">단계: ${refSteps.join(', ')}</div></div>` : ''}
+  `;
+});
+cy.on('tap', e => { if (e.target === cy) { cy.elements().removeClass('dim').removeClass('highlight');
+  document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); activeStepIdx = -1; }});
+
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  cy.elements().removeClass('highlight').removeClass('dim');
+  if (!q) return;
+  const matched = cy.nodes().filter(n =>
+    n.data('id').toLowerCase().includes(q) || n.data('full').class.toLowerCase().includes(q));
+  cy.nodes().not(matched).addClass('dim');
+  matched.addClass('highlight');
+});
+
+renderSteps();
+</script>
+</body>
+</html>
