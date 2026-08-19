@@ -1,5 +1,5 @@
 ---
-name: gas-reference
+name: gas-master
 description: Use when working with Unreal's Gameplay Ability System - attributes, attribute sets, gameplay effects, abilities, ability tasks, gameplay cues, prediction, targeting, or debugging why a GAS thing does not fire, does not replicate, or fires twice. Covers UE 5.8 API, where it diverges from older GAS tutorials, and what Lyra already provides.
 ---
 

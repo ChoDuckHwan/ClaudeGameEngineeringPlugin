@@ -25,7 +25,7 @@
     "skills": [
       "combat-helper",
       "gas-helper",
-      "gas-reference",
+      "gas-master",
       "inventory-helper",
       "ui-helper",
       "unreal-build-helper",
@@ -45,7 +45,7 @@
     "merge_post_edit_map": true,
     "messages": [
       "Unreal Engine 팩 활성화 완료 — UE5/GAS 코드 작업에 7 helper + 5 specialist 사용 가능",
-      "GAS 작업 전 gas-reference 스킬의 references/ue58-deltas.md 확인 — 5.5 이전 자료는 조용히 실패합니다",
+      "GAS 작업 전 gas-master 스킬의 references/ue58-deltas.md 확인 — 5.5 이전 자료는 조용히 실패합니다",
       "빌드: /unreal-build-helper 또는 unreal-architect 에이전트로 시스템 설계 자문"
     ]
   },
