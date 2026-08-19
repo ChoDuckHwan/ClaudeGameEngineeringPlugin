@@ -12,13 +12,29 @@ Unreal Engine 5.x 게임 개발에 특화된 helper 스킬 + specialist 에이�
 
 ## Provides
 
-### Skills (6)
+### Skills (7)
 - `combat-helper` — 전투 시스템 (무기·근접·원거리·AI·스태미나·데미지)
-- `gas-helper` — Gameplay Ability System
+- `gas-helper` — GAS 코드 템플릿 (프로젝트 규약 기준)
+- `gas-reference` — **GAS 심층 레퍼런스, UE 5.8 소스로 검증** (9 refs, ~2.4k 줄)
 - `inventory-helper` — Fragment 기반 인벤토리
 - `ui-helper` — MVVM + CommonUI
 - `unreal-build-helper` — 빌드·컴파일·프로젝트 재생성
 - `unreal-engine` — UE C++/BP 일반 가이드
+
+#### GAS 자산이 셋인 이유
+
+겹치는 게 아니라 **하는 일이 다릅니다.**
+
+| 스킬 | 답하는 질문 | 성격 |
+|---|---|---|
+| `unreal-engine` (레퍼런스) | GAS가 뭐고 어떻게 생겼나 | 버전 무관 개론 |
+| `gas-helper` | 이 프로젝트에서 어빌리티를 어떻게 쓰나 | 코드 템플릿 |
+| `gas-reference` | 5.8에서 이게 실제로 어떻게 동작하나 / 왜 안 되나 | 검증된 심층 + 디버깅 |
+
+**5.5 이상에서 GAS 코드를 쓸 때는 `gas-reference/references/ue58-deltas.md`를 먼저 봅니다.**
+온라인 GAS 자료는 거의 5.5 이전이고, 그 폐기들이 **조용히** 실패합니다 — 옛 필드가 남아 있고
+컴파일도 되지만 시스템이 읽지 않습니다. GE 태그를 채웠는데 태그가 안 붙거나, 1.5배 곱 두 개가
+2.25배가 아니라 2.0배가 되는 식입니다.
 
 ### Agents (5)
 - `gas-ability-developer` — GAS 어빌리티 신규 구현

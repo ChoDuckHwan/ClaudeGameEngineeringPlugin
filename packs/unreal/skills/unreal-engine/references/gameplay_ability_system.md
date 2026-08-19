@@ -1,8 +1,22 @@
 # Gameplay Ability System (GAS) Reference
 
+> **UE 5.5+ 주의 — 이 문서는 버전 무관 개론입니다.** 5.5~5.8에서 GAS의 상당 부분이 폐기됐고,
+> 그 폐기가 **조용합니다** — 옛 필드가 남아 있고 컴파일도 되지만 시스템이 읽지 않습니다.
+> 5.5 이상에서 실제 코드를 쓰기 전에 **`gas-reference` 스킬의 `references/ue58-deltas.md`를
+> 먼저 보세요.** 특히 GE의 태그 컨테이너 17개(컴포넌트로 이동), `EGameplayModOp` 개명,
+> `NonInstanced` 제거가 여기 적힌 것과 다릅니다.
+
 ## Overview
 
 The Gameplay Ability System is a framework for building abilities, attributes, and effects in gameplay-driven projects (RPGs, MOBAs, action games). Load this reference when working with GAS components, abilities, attributes, or effects.
+
+**세 GAS 자산의 역할 분담:**
+
+| 자산 | 무엇 |
+|---|---|
+| 이 문서 (`unreal-engine`) | 버전 무관 개론 — GAS가 무엇이고 어떻게 생겼는가 |
+| `gas-helper` | 프로젝트 코드 템플릿 — 이 프로젝트에서 어빌리티를 어떻게 쓰는가 |
+| **`gas-reference`** | **UE 5.8 소스로 검증한 심층 레퍼런스 + 증상별 디버깅** |
 
 ## Core Components
 
@@ -462,7 +476,11 @@ if (SpecHandle.IsValid())
 
 ```cpp
 // In ability class constructor
-AbilityTags.AddTag(FGameplayTag::RequestGameplayTag(FName("Ability.Attack.Melee")));
+
+// UE 5.5+ — AbilityTags is deprecated (becoming private). Use SetAssetTags(), constructor only.
+SetAssetTags(FGameplayTagContainer(FGameplayTag::RequestGameplayTag(FName("Ability.Attack.Melee"))));
+// UE 5.4 and earlier:  AbilityTags.AddTag(...);
+
 ActivationOwnedTags.AddTag(FGameplayTag::RequestGameplayTag(FName("Status.Attacking")));
 BlockAbilitiesWithTag.AddTag(FGameplayTag::RequestGameplayTag(FName("Status.Stunned")));
 ```

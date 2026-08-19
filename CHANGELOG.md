@@ -5,8 +5,18 @@
 ## [Unreleased] — W12 전 수정
 
 ### Added
+- **`packs/unreal/skills/gas-reference`** — GAS 심층 레퍼런스 (SKILL + 9 refs, ~2.4k 줄).
+  [tranek/GASDocumentation](https://github.com/tranek/GASDocumentation)(MIT, UE 5.3 기준)에서
+  파생해 **UE 5.8 플러그인 소스로 항목별 재검증**. 5.3↔5.8 델타, Lyra가 이미 제공하는 것,
+  증상별 디버깅 표를 포함. unreal 팩 1.0.0 → 1.1.0.
+- `NOTICE` — 서드파티 귀속 표시 (GASDocumentation MIT)
 - `engineerings/_user/README.md` + `packs/_user/README.md` — 사용자 자작 자산 격리 영역 가이드
 - `CONTRIBUTING.md` — 7 종 기여 종류 + PR 형식 + 명명 규칙
+
+### Fixed
+- `packs/unreal/skills/unreal-engine/references/gameplay_ability_system.md` — `AbilityTags.AddTag()`를
+  가르치고 있었으나 UE 5.5에서 폐기된 패턴. `SetAssetTags()` 병기 + 문서 상단에 5.5+ 경고와
+  `gas-reference` 포인터 추가. **`gas-reference`와 정면으로 모순되던 유일한 지점.**
 
 ### Changed
 - `plugin.json` — `_user/` 디렉토리를 components에 등록, schema URL placeholder 명시 (v2 공식 스펙 확정 시 갱신)
